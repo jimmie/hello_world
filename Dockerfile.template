@@ -1,6 +1,6 @@
-FROM artifactory.jpl.nasa.gov:16001/gov/nasa/jpl/nisar/sds/pcm/nisar_ade_base:r1.7.9
+FROM {{ base_image }}
 
-ENV HOME=/home/jovyan \
+ENV HOME=/home/{{ user }} \
     CONDA_DIR=/opt/conda
 
 USER root
@@ -8,7 +8,7 @@ RUN $CONDA_DIR/bin/conda install -y nb_conda_kernels
 RUN $CONDA_DIR/bin/pip install 'ipykernel<5.0.0'
 RUN chmod 4777 $HOME
 
-USER jovyan
+USER {{ user }}
 
 # ONLY TOUCH IF YOU NEED MORE RECENT VERSION, OTHERWISE DON'T TOUCH!!
 # RUN cd $HOME \
@@ -16,10 +16,10 @@ USER jovyan
 #     && cd notebook_pge_wrapper \
 #     && $CONDA_DIR/bin/pip install -e .
 
-COPY . $HOME/test
+COPY . $HOME/{{ project }}
 
 # installing user defined dependencies
-RUN $CONDA_DIR/bin/papermill $HOME/test/docker/requirements.ipynb /tmp/requirements_output.ipynb --log-output
+RUN $CONDA_DIR/bin/papermill $HOME/{{ project }}/docker/requirements.ipynb /tmp/requirements_output.ipynb --log-output
 
 WORKDIR $HOME
 
