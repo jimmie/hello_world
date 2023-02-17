@@ -19,7 +19,7 @@ USER jovyan
 COPY . $HOME/hello_world
 
 # installing user defined dependencies
-RUN $CONDA_DIR/bin/papermill $HOME/hello_world/docker/requirements.ipynb /tmp/requirements_output.ipynb --log-output
+# RUN $CONDA_DIR/bin/papermill $HOME/hello_world/docker/requirements.ipynb /tmp/requirements_output.ipynb --log-output
 
 WORKDIR $HOME
 
