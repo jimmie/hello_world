@@ -16,10 +16,10 @@ USER jovyan
 #     && cd notebook_pge_wrapper \
 #     && $CONDA_DIR/bin/pip install -e .
 
-COPY . $HOME/test
+COPY . $HOME/hello_world
 
 # installing user defined dependencies
-RUN $CONDA_DIR/bin/papermill $HOME/test/docker/requirements.ipynb /tmp/requirements_output.ipynb --log-output
+RUN $CONDA_DIR/bin/papermill $HOME/hello_world/docker/requirements.ipynb /tmp/requirements_output.ipynb --log-output
 
 WORKDIR $HOME
 
